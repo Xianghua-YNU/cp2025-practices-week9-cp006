@@ -2,14 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def get_fern_params():
-    """
     return [
         [0.00, 0.00, 0.00, 0.16, 0.00, 0.00, 0.01],  # 茎干
         [0.85, 0.04, -0.04, 0.85, 0.00, 1.60, 0.85],  # 小叶片
         [0.20, -0.26, 0.23, 0.22, 0.00, 1.60, 0.07],  # 左侧大叶片
         [-0.15, 0.28, 0.26, 0.24, 0.00, 0.44, 0.07]  # 右侧大叶片
     ]
-
+    """
     返回巴恩斯利蕨的IFS参数
     每个变换包含6个参数(a,b,c,d,e,f)和概率p
     """
@@ -17,13 +16,13 @@ def get_fern_params():
     pass
 
 def get_tree_params():
-    """
+    
     return [
         [0.00, 0.00, 0.00, 0.50, 0.00, 0.00, 0.10],  # 树干
         [0.3, -0.3, 0.42, 0.42, 0.00, 0.20, 0.45],  # 左分支
         [0.42, 0.42, -0.42, 0.42, 0.00, 0.20, 0.45]  # 右分支
     ]
-
+    """
     返回概率树的IFS参数
     每个变换包含6个参数(a,b,c,d,e,f)和概率p
     """
@@ -31,11 +30,11 @@ def get_tree_params():
     pass
 
 def apply_transform(point, params):
-    """
+    
     x, y = point
     a, b, c, d, e, f, _ = params
     return a * x + b * y + e, c * x + d * y + f
-    """
+    
     # TODO: 实现变换公式
     pass
 
@@ -70,7 +69,7 @@ def run_ifs(ifs_params, num_points=100000, num_skip=100):
     pass
 
 def plot_ifs(points, title="IFS Fractal"):
-    """
+    
     plt.figure(figsize=(8, 8))
     plt.scatter(points[:,0], points[:,1], s=1, c='green', alpha=0.75)
     plt.title(title)
@@ -80,6 +79,7 @@ def plot_ifs(points, title="IFS Fractal"):
     if save_path:
         plt.savefig(save_path, bbox_inches='tight', dpi=300)
     plt.show()
+    """
     绘制IFS分形
     :param points: 点坐标数组
     :param title: 图像标题

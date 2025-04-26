@@ -35,15 +35,17 @@ def apply_transform(point, params):
     x, y = point
     a, b, c, d, e, f, _ = params
     return a * x + b * y + e, c * x + d * y + f
-    应用单个变换到点
-    :param point: 当前点坐标(x,y)
-    :param params: 变换参数[a,b,c,d,e,f,p]
-    :return: 变换后的新坐标(x',y')
     """
     # TODO: 实现变换公式
     pass
 
 def run_ifs(ifs_params, num_points=100000, num_skip=100):
+    """
+    运行IFS迭代生成点集
+    :param ifs_params: IFS参数列表
+    :param num_points: 总点数
+    :param num_skip: 跳过前n个点(避免初始不稳定)
+    :return: 生成的点坐标数组
     """
     # 提取概率用于随机选择
     probs = [p[-1] for p in ifs_params]
@@ -52,7 +54,6 @@ def run_ifs(ifs_params, num_points=100000, num_skip=100):
     # 初始化
     point = (0.5, 0)  # 初始点
     points = np.zeros((num_points, 2))
-    transform_indices = np.zeros(num_points, dtype=int)  # 新增：记录每次选择的变换索引
 
     # 迭代生成点
     for i in range(num_points + num_skip):
@@ -63,30 +64,19 @@ def run_ifs(ifs_params, num_points=100000, num_skip=100):
         # 跳过初始不稳定点
         if i >= num_skip:
             points[i - num_skip] = point
-            transform_indices[i - num_skip] = idx  # 记录选择的变换索引
 
-    return points, transform_indices
-    运行IFS迭代生成点集
-    :param ifs_params: IFS参数列表
-    :param num_points: 总点数
-    :param num_skip: 跳过前n个点
-    :return: 生成的点坐标数组
-    """
+    return points
     # TODO: 实现混沌游戏算法
     pass
 
 def plot_ifs(points, title="IFS Fractal"):
     """
     plt.figure(figsize=(8, 8))
-    fern_params = get_fern_params()
-    colors = ['brown', 'green', 'lightgreen', 'green']  # 对应茎干、小叶片、左侧大叶片、右侧大叶片
-    for i in range(len(fern_params)):
-        subset = points[np.where(transform_indices == i)]
-        plt.scatter(subset[:, 0], subset[:, 1], s=1, c=colors[i], alpha=0.75)
+    plt.scatter(points[:,0], points[:,1], s=1, c='green', alpha=0.75)
     plt.title(title)
     plt.axis('equal')
     plt.axis('off')
-
+    
     if save_path:
         plt.savefig(save_path, bbox_inches='tight', dpi=300)
     plt.show()
